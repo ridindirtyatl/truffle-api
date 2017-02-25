@@ -18,4 +18,4 @@ heroku container:login
 # Build and release the application.
 # To give access to your Heroku apps, you
 # need to set the HEROKU_API_KEY environment variable.
-heroku container:push --app ridindirty-api web
+heroku container:push --app ridindirtyatl-api web
