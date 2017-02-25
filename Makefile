@@ -29,3 +29,15 @@ else
 deploy:
 	@echo "Travis won't deploy during pull requests"
 endif
+
+run:
+	docker run --rm -it -v ${PWD}:/app -p 5000:5000 ${IMAGE_TAG}
+
+raml:
+	go-raml server --ramlfile API.raml --language python --dir flask
+	cp app.py flask
+	cp index.html flask
+	cp requirements.txt flask
+	rm -rf flask/apidocs
+	mv flask/* .
+	rm -rf flask
