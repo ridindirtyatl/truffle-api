@@ -11,7 +11,7 @@ test: build test-only
 
 .PHONY: test-only
 test-only:
-	docker run --rm -it truffle-api pytest
+	docker run --rm -it ${IMAGE_TAG} pytest
 
 .PHONY: deploy
 ifeq (${TRAVIS_PULL_REQUEST},false)
