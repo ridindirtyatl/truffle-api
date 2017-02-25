@@ -7,6 +7,9 @@ branches:
   only:
   - master
 
+script:
+- true
+
 
 after_success:
 - ./scripts/deploy
