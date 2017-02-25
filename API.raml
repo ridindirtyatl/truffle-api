@@ -1,0 +1,90 @@
+#%RAML 1.0
+title: ridinÎéÎ÷ dirty
+version: 1
+description: RidinÎéÎ÷ Dirty API
+baseUri: http://localhost:5000
+mediaType: application/json
+
+types:
+  bus:
+    type: object
+    properties:
+      vehicle_id:
+        type: integer
+      route_id:
+        type: integer
+      destination:
+        type: string
+      adherence:
+        type: integer
+      prev_stop:
+        type: string
+      next_stop:
+        type: string
+      actual_passenger_count:
+        type: integer
+  route:
+    type: object
+    properties:
+      vehicle_list:
+        type: integer[]
+      aggregates:
+        type: aggregates
+  aggregates:
+    type: object
+    properties:
+      avg_passenger_count:
+        type: integer
+      max_passenger_count:
+        type: integer
+      min_passenger_count:
+        type: integer
+      avg_adherence_count:
+        type: integer
+      max_adherence_count:
+        type: integer
+      min_adherence_count:
+        type: integer
+/bus:
+  get:
+    description: Get a list of all buses
+    responses:
+      200:
+        body:
+          application/json:
+            type: bus[]
+  /{id}:
+    uriParameters:
+      id:
+        type: integer
+    get:
+      description: Get information about a single bus
+      queryParameters:
+        start:
+          type: date
+        end:
+          type: date
+      responses:
+        200:
+          body:
+            application/json:
+              type: bus
+/route:
+  get:
+    description: Get a list of routes
+    responses:
+      200:
+        body:
+          application/json:
+            type: route[]
+  /{id}:
+    uriParameters:
+      id:
+        type: integer
+    get:
+      description: Get information about a single route
+      responses:
+        200:
+          body:
+            application/json:
+              type: route
