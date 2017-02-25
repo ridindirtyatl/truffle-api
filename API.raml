@@ -6,7 +6,7 @@ baseUri: http://localhost:5000
 mediaType: application/json
 
 types:
-  bus:
+  Bus:
     type: object
     properties:
       vehicle_id:
@@ -23,14 +23,14 @@ types:
         type: string
       actual_passenger_count:
         type: integer
-  route:
+  Route:
     type: object
     properties:
       vehicle_list:
         type: integer[]
       aggregates:
-        type: aggregates
-  aggregates:
+        type: Aggregates
+  Aggregates:
     type: object
     properties:
       avg_passenger_count:
@@ -52,7 +52,7 @@ types:
       200:
         body:
           application/json:
-            type: bus[]
+            type: Bus[]
   /{id}:
     uriParameters:
       id:
@@ -61,14 +61,14 @@ types:
       description: Get information about a single bus
       queryParameters:
         start:
-          type: date
+          type: datetime-only
         end:
-          type: date
+          type: datetime-only
       responses:
         200:
           body:
             application/json:
-              type: bus
+              type: Bus
 /route:
   get:
     description: Get a list of routes
@@ -76,7 +76,7 @@ types:
       200:
         body:
           application/json:
-            type: route[]
+            type: Route[]
   /{id}:
     uriParameters:
       id:
@@ -87,4 +87,5 @@ types:
         200:
           body:
             application/json:
-              type: route
+              type: Route
+
