@@ -28,8 +28,6 @@ types:
     properties:
       vehicle_list:
         type: integer[]
-      aggregates:
-        type: Aggregates
   Aggregates:
     type: object
     properties:
@@ -45,47 +43,99 @@ types:
         type: integer
       min_adherence_count:
         type: integer
-/bus:
+  Timestamp:
+    description: |
+      A restricted ISO 8601 timestamp
+        * Second resolution only.
+        * UTC only using the 'Z' notation.
+    type: string
+    example: '2016-08-24T23:59:59Z'
+/bus/{id}:
+  uriParameters:
+    id:
+      type: integer
+  get:
+    description: Get information about a single bus
+    queryParameters:
+      start:
+        type: Timestamp
+        required: false
+      end:
+        type: Timestamp
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              bus:
+                type: Bus
+              aggregates:
+                type: Aggregates
+/buses:
   get:
     description: Get a list of all buses
-    responses:
-      200:
-        body:
-          application/json:
-            type: Bus[]
-  /{id}:
-    uriParameters:
-      id:
+    queryParameters:
+      start_time:
+        type: Timestamp
+        required: false
+      end_time:
+        type: Timestamp
+        required: false
+      route_id:
         type: integer
-    get:
-      description: Get information about a single bus
-      queryParameters:
-        start:
-          type: datetime-only
-        end:
-          type: datetime-only
-      responses:
-        200:
-          body:
-            application/json:
-              type: Bus
-/route:
-  get:
-    description: Get a list of routes
+        required: false
     responses:
       200:
         body:
           application/json:
-            type: Route[]
-  /{id}:
+            type: object
+            properties:
+              routes:
+                type: Bus[]
+              aggregates:
+                 type: Aggregates
+/route/{id}:
     uriParameters:
       id:
         type: integer
     get:
       description: Get information about a single route
+      queryParameters:
+        start:
+          type: Timestamp
+          required: false
+        end:
+          type: Timestamp
+          required: false
       responses:
         200:
           body:
             application/json:
-              type: Route
-
+              type: object
+              properties:
+                route:
+                  type: Route
+                aggregates:
+                  type: Aggregates
+/routes:
+  get:
+    description: Get a list of routes
+    queryParameters:
+      start_time:
+        type: Timestamp
+        required: false
+      end_time:
+        type: Timestamp
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              routes:
+                type: Route[]
+              aggregates:
+                 type: Aggregates
