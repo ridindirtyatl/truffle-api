@@ -13,8 +13,7 @@ branches:
   - master
 
 script:
-- true
-
+- pytest
 
 after_success:
 - ./scripts/deploy
