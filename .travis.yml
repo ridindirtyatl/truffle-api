@@ -1,8 +1,5 @@
 language: python
 
-install:
-  - pip install -r requirements.txt
-
 services:
 - docker
 
@@ -13,7 +10,7 @@ branches:
   - master
 
 script:
-- pytest
+- make build test
 
 after_success:
-- ./scripts/deploy
+- make deploy
