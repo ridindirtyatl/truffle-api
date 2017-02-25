@@ -1,0 +1,91 @@
+#%RAML 1.0
+title: riding' dirty
+version: 1
+description: Ridin' Dirty API
+baseUri: https://ridingdirtyatl-api.herokuapp.com/v{version}
+mediaType: application/json
+
+types:
+  Bus:
+    type: object
+    properties:
+      vehicle_id:
+        type: integer
+      route_id:
+        type: integer
+      destination:
+        type: string
+      adherence:
+        type: integer
+      prev_stop:
+        type: string
+      next_stop:
+        type: string
+      actual_passenger_count:
+        type: integer
+  Route:
+    type: object
+    properties:
+      vehicle_list:
+        type: integer[]
+      aggregates:
+        type: Aggregates
+  Aggregates:
+    type: object
+    properties:
+      avg_passenger_count:
+        type: integer
+      max_passenger_count:
+        type: integer
+      min_passenger_count:
+        type: integer
+      avg_adherence_count:
+        type: integer
+      max_adherence_count:
+        type: integer
+      min_adherence_count:
+        type: integer
+/bus:
+  get:
+    description: Get a list of all buses
+    responses:
+      200:
+        body:
+          application/json:
+            type: Bus[]
+  /{id}:
+    uriParameters:
+      id:
+        type: integer
+    get:
+      description: Get information about a single bus
+      queryParameters:
+        start:
+          type: datetime-only
+        end:
+          type: datetime-only
+      responses:
+        200:
+          body:
+            application/json:
+              type: Bus
+/route:
+  get:
+    description: Get a list of routes
+    responses:
+      200:
+        body:
+          application/json:
+            type: Route[]
+  /{id}:
+    uriParameters:
+      id:
+        type: integer
+    get:
+      description: Get information about a single route
+      responses:
+        200:
+          body:
+            application/json:
+              type: Route
+
