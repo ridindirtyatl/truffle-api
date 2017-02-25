@@ -4,10 +4,9 @@ RUN pip install flask
 
 COPY . /app
 
-ENV FLASK_APP=/app/app.py
+ENV FLASK_APP=/app/app.py \
+    PORT=5000
 
-ENTRYPOINT ["python", "-m", "flask"]
-
-CMD ["run", "--host=0.0.0.0"]
+CMD ["python","/app/app.py"]
 
 EXPOSE 5000
