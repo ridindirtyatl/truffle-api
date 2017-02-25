@@ -1,0 +1,17 @@
+language: python
+
+services:
+- docker
+
+sudo: required
+
+branches:
+  only:
+  - master
+
+script:
+- true
+
+
+after_success:
+- ./scripts/deploy
