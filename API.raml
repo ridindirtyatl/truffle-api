@@ -28,8 +28,6 @@ types:
     properties:
       vehicle_list:
         type: integer[]
-      aggregates:
-        type: Aggregates
   Aggregates:
     type: object
     properties:
@@ -45,14 +43,15 @@ types:
         type: integer
       min_adherence_count:
         type: integer
+  Timestamp:
+    description: |
+      A restricted ISO 8601 timestamp
+        * Second resolution only.
+        * UTC only using the 'Z' notation.
+    type: string
+    pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$
+    example: '2016-08-24T23:59:ddZ'
 /bus:
-  get:
-    description: Get a list of all buses
-    responses:
-      200:
-        body:
-          application/json:
-            type: Bus[]
   /{id}:
     uriParameters:
       id:
@@ -61,31 +60,75 @@ types:
       description: Get information about a single bus
       queryParameters:
         start:
-          type: datetime-only
+          type: Timestamp
         end:
-          type: datetime-only
+          type: Timestamp
       responses:
         200:
           body:
             application/json:
-              type: Bus
-/route:
+              type: object
+              properties:
+                bus:
+                  type: Bus
+                aggregates:
+                  type: Aggregates
+/buses:
   get:
-    description: Get a list of routes
+    description: Get a list of all buses
+    queryParameters:
+      start_time:
+        type: Timestamp
+      end_time:
+        type: Timestamp
+      route_id:
+        type: integer
     responses:
       200:
         body:
           application/json:
-            type: Route[]
-  /{id}:
+            type: object
+            properties:
+              routes:
+                type: Bus[]
+              aggregates:
+                 type: Aggregates
+/route/{id}:
     uriParameters:
       id:
         type: integer
     get:
       description: Get information about a single route
+      queryParameters:
+        start:
+          type: Timestamp
+        end:
+          type: Timestamp
       responses:
         200:
           body:
             application/json:
-              type: Route
-
+              type: object
+              properties:
+                route:
+                  type: Route
+                aggregates:
+                  type: Aggregates
+/routes:
+  get:
+    description: Get a list of routes
+    queryParameters:
+      start_time:
+        type: Timestamp
+      end_time:
+        type: Timestamp
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+            properties:
+              routes:
+                type: Route[]
+              aggregates:
+                 type: Aggregates
