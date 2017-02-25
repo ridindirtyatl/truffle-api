@@ -61,8 +61,10 @@ types:
       queryParameters:
         start:
           type: Timestamp
+          required: false
         end:
           type: Timestamp
+          required: false
       responses:
         200:
           body:
@@ -79,10 +81,13 @@ types:
     queryParameters:
       start_time:
         type: Timestamp
+        required: false
       end_time:
         type: Timestamp
+        required: false
       route_id:
         type: integer
+        required: false
     responses:
       200:
         body:
@@ -102,8 +107,10 @@ types:
       queryParameters:
         start:
           type: Timestamp
+          required: false
         end:
           type: Timestamp
+          required: false
       responses:
         200:
           body:
@@ -120,8 +127,10 @@ types:
     queryParameters:
       start_time:
         type: Timestamp
+        required: false
       end_time:
         type: Timestamp
+        required: false
     responses:
       200:
         body:
