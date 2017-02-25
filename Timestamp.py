@@ -6,6 +6,5 @@ from input_validators import multiple_of
 
 
 
-class Route(Form):
+class Timestamp(Form):
     
-    vehicle_list = FieldList(IntegerField('vehicle_list', [required()]), DataRequired(message=""))

@@ -1,7 +1,9 @@
 from flask import Flask, send_from_directory, send_file
 import wtforms_json
-from bus import bus_api
-from route import route_api
+from busid import busid_api
+from buses import buses_api
+from routeid import routeid_api
+from routes import routes_api
 import os
 
 
@@ -10,8 +12,10 @@ app = Flask(__name__)
 app.config["WTF_CSRF_ENABLED"] = False
 wtforms_json.init()
 
-app.register_blueprint(bus_api)
-app.register_blueprint(route_api)
+app.register_blueprint(busid_api)
+app.register_blueprint(buses_api)
+app.register_blueprint(routeid_api)
+app.register_blueprint(routes_api)
 
 
 @app.route('/apidocs/<path:path>')
@@ -29,4 +33,4 @@ def raml():
     return send_file('API.raml')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=int(os.getenv('PORT',5000)))
+    app.run(debug=True, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
